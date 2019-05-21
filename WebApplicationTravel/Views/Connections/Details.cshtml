@@ -1,0 +1,67 @@
+﻿@model WebApplicationTravel.Models.Connections
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Connections</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DestCity.CityName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DestCity.CityName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SourceCity.CityName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SourceCity.CityName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FlightDuration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FlightDuration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CarDuration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CarDuration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FlightPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FlightPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CarPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CarPrice)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ConnectionsId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<WebApplicationTravel.Models.Connections>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DestCity.CityName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SourceCity.CityName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FlightDuration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CarDuration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FlightPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CarPrice)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DestCity.CityName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SourceCity.CityName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FlightDuration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CarDuration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FlightPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CarPrice)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ConnectionsId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ConnectionsId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ConnectionsId })
+        </td>
+    </tr>
+}
+
+</table>

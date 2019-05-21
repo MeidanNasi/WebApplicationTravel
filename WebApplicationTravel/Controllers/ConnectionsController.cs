@@ -10,112 +10,116 @@ using WebApplicationTravel.Models;
 
 namespace WebApplicationTravel.Controllers
 {
-    public class CitiesController : Controller
+    public class ConnectionsController : Controller
     {
         private MSGDBContext db = new MSGDBContext();
 
-        // GET: Cities
+        // GET: Connections
         public ActionResult Index()
         {
-            var cities = db.Cities.Include(c => c.Country);
-            return View(cities.ToList());
+            var connections = db.Connections.Include(c => c.DestCity).Include(c => c.SourceCity);
+            return View(connections.ToList());
         }
 
-        // GET: Cities/Details/5
+        // GET: Connections/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            City city = db.Cities.Find(id);
-            if (city == null)
+            Connections connections = db.Connections.Find(id);
+            if (connections == null)
             {
                 return HttpNotFound();
             }
-            return View(city);
+            return View(connections);
         }
 
-        // GET: Cities/Create
+        // GET: Connections/Create
         public ActionResult Create()
         {
-            ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "CountryName");
+            ViewBag.DestCityId = new SelectList(db.Cities, "CityId", "CityName");
+            ViewBag.SourceCityId = new SelectList(db.Cities, "CityId", "CityName");
             return View();
         }
 
-        // POST: Cities/Create
+        // POST: Connections/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CityId,CityName,CountryId,FlightPriceKey,CarRentalPriceKey,Coordinate")] City city)
+        public ActionResult Create([Bind(Include = "ConnectionsId,SourceCityId,DestCityId,FlightDuration,CarDuration,FlightPrice,CarPrice")] Connections connections)
         {
             if (ModelState.IsValid)
             {
-                db.Cities.Add(city);
+                db.Connections.Add(connections);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "CountryName", city.CountryId);
-            return View(city);
+            ViewBag.DestCityId = new SelectList(db.Cities, "CityId", "CityName", connections.DestCityId);
+            ViewBag.SourceCityId = new SelectList(db.Cities, "CityId", "CityName", connections.SourceCityId);
+            return View(connections);
         }
 
-        // GET: Cities/Edit/5
+        // GET: Connections/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            City city = db.Cities.Find(id);
-            if (city == null)
+            Connections connections = db.Connections.Find(id);
+            if (connections == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "CountryName", city.CountryId);
-            return View(city);
+            ViewBag.DestCityId = new SelectList(db.Cities, "CityId", "CityName", connections.DestCityId);
+            ViewBag.SourceCityId = new SelectList(db.Cities, "CityId", "CityName", connections.SourceCityId);
+            return View(connections);
         }
 
-        // POST: Cities/Edit/5
+        // POST: Connections/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CityId,CityName,CountryId,FlightPriceKey,CarRentalPriceKey,Coordinate")] City city)
+        public ActionResult Edit([Bind(Include = "ConnectionsId,SourceCityId,DestCityId,FlightDuration,CarDuration,FlightPrice,CarPrice")] Connections connections)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(city).State = EntityState.Modified;
+                db.Entry(connections).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "CountryName", city.CountryId);
-            return View(city);
+            ViewBag.DestCityId = new SelectList(db.Cities, "CityId", "CityName", connections.DestCityId);
+            ViewBag.SourceCityId = new SelectList(db.Cities, "CityId", "CityName", connections.SourceCityId);
+            return View(connections);
         }
 
-        // GET: Cities/Delete/5
+        // GET: Connections/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            City city = db.Cities.Find(id);
-            if (city == null)
+            Connections connections = db.Connections.Find(id);
+            if (connections == null)
             {
                 return HttpNotFound();
             }
-            return View(city);
+            return View(connections);
         }
 
-        // POST: Cities/Delete/5
+        // POST: Connections/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            City city = db.Cities.Find(id);
-            db.Cities.Remove(city);
+            Connections connections = db.Connections.Find(id);
+            db.Connections.Remove(connections);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

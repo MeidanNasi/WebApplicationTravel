@@ -24,6 +24,9 @@
         <th>
             @Html.DisplayNameFor(model => model.CarRentalPriceKey)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Coordinate)
+        </th>
         <th></th>
     </tr>
 
@@ -40,6 +43,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CarRentalPriceKey)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Coordinate)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.CityId }) |

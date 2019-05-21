@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -15,6 +15,9 @@ namespace WebApplicationTravel.Models
         public double FlightPriceKey { get; set; }
         public double CarRentalPriceKey { get; set; }
         public Point Coordinate { get; set; }
-
+        [InverseProperty("SourceCity")]
+        public ICollection<Connections> SourceCityConnections { get; set; }
+        [InverseProperty("DestCity")]
+        public ICollection<Connections> DestCityConnections { get; set; }
     }
 }
