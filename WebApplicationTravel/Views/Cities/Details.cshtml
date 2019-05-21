@@ -1,0 +1,51 @@
+﻿@model WebApplicationTravel.Models.City
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>City</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Country.CountryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Country.CountryName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CityName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CityName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FlightPriceKey)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FlightPriceKey)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CarRentalPriceKey)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CarRentalPriceKey)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CityId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
