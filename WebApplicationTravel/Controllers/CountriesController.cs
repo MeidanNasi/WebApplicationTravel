@@ -12,7 +12,7 @@ namespace WebApplicationTravel.Controllers
 {
     public class CountriesController : Controller
     {
-        private MSGDContext db = new MSGDContext();
+        private MSGDBContext db = new MSGDBContext();
 
         // GET: Countries
         public ActionResult Index()

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace WebApplicationTravel.Models
 {
-    public class MSGDContext: DbContext
+    public class MSGDBContext: DbContext
     {
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }

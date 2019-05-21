@@ -157,7 +157,7 @@
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Connections.cs" />
     <Compile Include="Models\Country.cs" />
-    <Compile Include="Models\MSGDContext.cs" />
+    <Compile Include="Models\MSGDBContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
