@@ -53,6 +53,16 @@ namespace WebApplicationTravel.Controllers
         {
             if (ModelState.IsValid)
             {
+                //City source= db.Cities.Find(connections.SourceCityId);
+                //City dest = db.Cities.Find(connections.DestCityId);
+
+                //double x0 = source.Coordinate.X;
+                //double x1 = dest.Coordinate.X;
+                //double y0 = source.Coordinate.Y;
+                //double y1 = dest.Coordinate.Y;
+                //double distance = Math.Sqrt(Math.Pow(x0 - x1, 2) + Math.Pow(y0 - y1, 2));
+                //connections.FlightDuration = distance / 5;
+                UpdateDist(connections);
                 db.Connections.Add(connections);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -131,6 +141,19 @@ namespace WebApplicationTravel.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public void UpdateDist(Connections connections)
+        {
+            City source = db.Cities.Find(connections.SourceCityId);
+            City dest = db.Cities.Find(connections.DestCityId);
+
+            double x0 = source.Coordinate.X;
+            double x1 = dest.Coordinate.X;
+            double y0 = source.Coordinate.Y;
+            double y1 = dest.Coordinate.Y;
+            double distance = Math.Sqrt(Math.Pow(x0 - x1, 2) + Math.Pow(y0 - y1, 2));
+            connections.FlightDuration = distance / 5;
         }
     }
 }

@@ -13,10 +13,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.DestCity.CityName)
+            @Html.DisplayNameFor(model => model.SourceCity.CityName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SourceCity.CityName)
+            @Html.DisplayNameFor(model => model.DestCity.CityName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FlightDuration)
@@ -36,10 +36,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.DestCity.CityName)
+            @Html.DisplayFor(modelItem => item.SourceCity.CityName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SourceCity.CityName)
+            @Html.DisplayFor(modelItem => item.DestCity.CityName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.FlightDuration)

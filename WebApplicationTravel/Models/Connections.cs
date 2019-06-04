@@ -17,10 +17,10 @@ namespace WebApplicationTravel.Models
         [ForeignKey("DestCity")]
         public int? DestCityId { get; set; }
         public virtual City DestCity { get; set; }
-        public double FlightDuration { get; set; }
-        public double CarDuration { get; set; }
-        public double FlightPrice { get; set; }
-        public double CarPrice { get; set; }
+        public double? FlightDuration { get; set; }
+        public double? CarDuration { get; set; }
+        public double? FlightPrice { get; set; }
+        public double? CarPrice { get; set; }
 
     }
 }
