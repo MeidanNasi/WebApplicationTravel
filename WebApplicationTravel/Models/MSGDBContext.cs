@@ -11,6 +11,7 @@ namespace WebApplicationTravel.Models
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Connections> Connections { get; set; }
+        public DbSet<Account> Accounts { get; set; }
 
     }
 }

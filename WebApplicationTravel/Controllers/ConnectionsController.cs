@@ -49,20 +49,11 @@ namespace WebApplicationTravel.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ConnectionsId,SourceCityId,DestCityId,FlightDuration,CarDuration,FlightPrice,CarPrice")] Connections connections)
+        public ActionResult Create([Bind(Include = "ConnectionsId,SourceCityId,DestCityId,FlightDuration,CarDuration,FlightPrice,CarPrice,CarAvailabilty,FlightAvailabilty")] Connections connections)
         {
             if (ModelState.IsValid)
             {
-                //City source= db.Cities.Find(connections.SourceCityId);
-                //City dest = db.Cities.Find(connections.DestCityId);
-
-                //double x0 = source.Coordinate.X;
-                //double x1 = dest.Coordinate.X;
-                //double y0 = source.Coordinate.Y;
-                //double y1 = dest.Coordinate.Y;
-                //double distance = Math.Sqrt(Math.Pow(x0 - x1, 2) + Math.Pow(y0 - y1, 2));
-                //connections.FlightDuration = distance / 5;
-                UpdateDist(connections);
+                PriceAndDurationCalc(connections);
                 db.Connections.Add(connections);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -95,10 +86,11 @@ namespace WebApplicationTravel.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ConnectionsId,SourceCityId,DestCityId,FlightDuration,CarDuration,FlightPrice,CarPrice")] Connections connections)
+        public ActionResult Edit([Bind(Include = "ConnectionsId,SourceCityId,DestCityId,FlightDuration,CarDuration,FlightPrice,CarPrice,CarAvailabilty,FlightAvailabilty")] Connections connections)
         {
             if (ModelState.IsValid)
             {
+                PriceAndDurationCalc(connections);
                 db.Entry(connections).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -142,18 +134,38 @@ namespace WebApplicationTravel.Controllers
             }
             base.Dispose(disposing);
         }
-
-        public void UpdateDist(Connections connections)
+        public void PriceAndDurationCalc(Connections connection)
         {
-            City source = db.Cities.Find(connections.SourceCityId);
-            City dest = db.Cities.Find(connections.DestCityId);
+            City source = db.Cities.Find(connection.SourceCityId);
+            City dest = db.Cities.Find(connection.DestCityId);
 
             double x0 = source.Coordinate.X;
             double x1 = dest.Coordinate.X;
             double y0 = source.Coordinate.Y;
             double y1 = dest.Coordinate.Y;
             double distance = Math.Sqrt(Math.Pow(x0 - x1, 2) + Math.Pow(y0 - y1, 2));
-            connections.FlightDuration = distance / 5;
+            if (connection.FlightAvailabilty)
+            {
+                connection.FlightDuration =System.Math.Round( distance / 5, 2);
+                connection.FlightPrice = connection.FlightDuration * source.FlightPriceKey;
+            }
+            else
+            {
+                connection.FlightDuration = null;
+                connection.FlightPrice = null;
+            }
+            if (connection.CarAvailabilty)
+            {
+                connection.CarDuration = System.Math.Round(distance / 0.8, 2);
+                connection.CarPrice = connection.CarDuration * source.CarRentalPriceKey;
+            }
+            else
+            {
+                connection.CarDuration = null;
+                connection.CarPrice = null;
+            }
+            
         }
+     
     }
 }

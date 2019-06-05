@@ -13,10 +13,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.SourceCity.CityName)
+            @Html.DisplayNameFor(model => model.DestCity.CityName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DestCity.CityName)
+            @Html.DisplayNameFor(model => model.SourceCity.CityName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FlightDuration)
@@ -30,16 +30,22 @@
         <th>
             @Html.DisplayNameFor(model => model.CarPrice)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CarAvailabilty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FlightAvailabilty)
+        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.SourceCity.CityName)
+            @Html.DisplayFor(modelItem => item.DestCity.CityName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DestCity.CityName)
+            @Html.DisplayFor(modelItem => item.SourceCity.CityName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.FlightDuration)
@@ -52,6 +58,12 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CarPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CarAvailabilty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FlightAvailabilty)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ConnectionsId }) |

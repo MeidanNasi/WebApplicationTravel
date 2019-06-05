@@ -148,6 +148,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
     <Compile Include="Controllers\ConnectionsController.cs" />
     <Compile Include="Controllers\CountriesController.cs" />
@@ -163,17 +164,27 @@
     <Compile Include="Migrations\201906041521013_migration1.Designer.cs">
       <DependentUpon>201906041521013_migration1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906051403139_carAndFlightAvailabilty.cs" />
+    <Compile Include="Migrations\201906051403139_carAndFlightAvailabilty.Designer.cs">
+      <DependentUpon>201906051403139_carAndFlightAvailabilty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906051640592_AddAccountsModel.cs" />
+    <Compile Include="Migrations\201906051640592_AddAccountsModel.Designer.cs">
+      <DependentUpon>201906051640592_AddAccountsModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Connections.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\MSGDBContext.cs" />
     <Compile Include="Models\Point.cs" />
+    <Compile Include="Models\Account.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\LoginPage\images\msg.jpg" />
     <Content Include="Content\MyTemplate\css\animate.css" />
     <Content Include="Content\MyTemplate\css\bootstrap-datepicker.min.css" />
     <Content Include="Content\MyTemplate\css\bootstrap.css" />
@@ -224,6 +235,13 @@
     <Content Include="Content\MyTemplate\js\selectFx.js" />
     <Content Include="Content\MyTemplate\js\sticky.js" />
     <Content Include="Content\MyTemplate\js\superfish.js" />
+    <Content Include="Content\LoginPage\css\font-awesome.min.css" />
+    <Content Include="Content\LoginPage\css\style.css" />
+    <Content Include="Content\LoginPage\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\LoginPage\images\bg2.jpg" />
+    <Content Include="Content\LoginPage\images\user.jpg" />
+    <Content Include="Content\LoginPage\index.html" />
+    <Content Include="Content\LoginPage\w3layouts-License.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -315,6 +333,11 @@
     <Content Include="Content\MyTemplate\sass\_bootstrap-compass.scss" />
     <Content Include="Content\MyTemplate\sass\_bootstrap-mincer.scss" />
     <Content Include="Content\MyTemplate\sass\_bootstrap-sprockets.scss" />
+    <Content Include="Content\LoginPage\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\LoginPage\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\LoginPage\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\LoginPage\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\LoginPage\fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -356,6 +379,13 @@
     <Content Include="Views\Connections\Details.cshtml" />
     <Content Include="Views\Connections\Edit.cshtml" />
     <Content Include="Views\Connections\Index.cshtml" />
+    <Content Include="Views\Accounts\Create.cshtml" />
+    <Content Include="Views\Accounts\Delete.cshtml" />
+    <Content Include="Views\Accounts\Details.cshtml" />
+    <Content Include="Views\Accounts\Edit.cshtml" />
+    <Content Include="Views\Accounts\Index.cshtml" />
+    <Content Include="Views\Shared\_LoginPage.cshtml" />
+    <Content Include="Views\Accounts\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -379,6 +409,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906041521013_migration1.resx">
       <DependentUpon>201906041521013_migration1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906051403139_carAndFlightAvailabilty.resx">
+      <DependentUpon>201906051403139_carAndFlightAvailabilty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906051640592_AddAccountsModel.resx">
+      <DependentUpon>201906051640592_AddAccountsModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

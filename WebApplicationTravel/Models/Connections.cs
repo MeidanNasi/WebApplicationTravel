@@ -21,6 +21,7 @@ namespace WebApplicationTravel.Models
         public double? CarDuration { get; set; }
         public double? FlightPrice { get; set; }
         public double? CarPrice { get; set; }
-
+        public Boolean CarAvailabilty { get; set; }
+        public Boolean FlightAvailabilty { get; set; }
     }
 }
