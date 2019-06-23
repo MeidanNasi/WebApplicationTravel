@@ -19,6 +19,5 @@ namespace WebApplicationTravel.Models
         public ICollection<Connections> SourceCityConnections { get; set; }
         [InverseProperty("DestCity")]
         public ICollection<Connections> DestCityConnections { get; set; }
-
     }
 }

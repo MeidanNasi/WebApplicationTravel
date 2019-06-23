@@ -13,5 +13,6 @@ namespace WebApplicationTravel.Models
         public DbSet<Connections> Connections { get; set; }
         public DbSet<Account> Accounts { get; set; }
 
+        public System.Data.Entity.DbSet<WebApplicationTravel.Models.Reservation> Reservations { get; set; }
     }
 }

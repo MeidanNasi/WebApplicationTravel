@@ -56,6 +56,18 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="QuickGraph, Version=3.6.61114.0, Culture=neutral, PublicKeyToken=f3fb40175eec2af3, processorArchitecture=MSIL">
+      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickGraph.Data, Version=3.6.61114.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickGraph.Graphviz, Version=3.6.61114.0, Culture=neutral, PublicKeyToken=f3fb40175eec2af3, processorArchitecture=MSIL">
+      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Graphviz.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickGraph.Serialization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Serialization.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -153,6 +165,7 @@
     <Compile Include="Controllers\ConnectionsController.cs" />
     <Compile Include="Controllers\CountriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReservationsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -172,13 +185,27 @@
     <Compile Include="Migrations\201906051640592_AddAccountsModel.Designer.cs">
       <DependentUpon>201906051640592_AddAccountsModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906180957209_ResrvationModelAdd.cs" />
+    <Compile Include="Migrations\201906180957209_ResrvationModelAdd.Designer.cs">
+      <DependentUpon>201906180957209_ResrvationModelAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906180959289_ReservationAddToAccountModel.cs" />
+    <Compile Include="Migrations\201906180959289_ReservationAddToAccountModel.Designer.cs">
+      <DependentUpon>201906180959289_ReservationAddToAccountModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\BestFirstSearch.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Connections.cs" />
     <Compile Include="Models\Country.cs" />
+    <Compile Include="Models\Dijakstra.cs" />
     <Compile Include="Models\MSGDBContext.cs" />
     <Compile Include="Models\Point.cs" />
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\PriorityQueue.cs" />
+    <Compile Include="Models\Reservation.cs" />
+    <Compile Include="Models\Vertex.cs" />
+    <Compile Include="Models\Weight.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -385,7 +412,16 @@
     <Content Include="Views\Accounts\Edit.cshtml" />
     <Content Include="Views\Accounts\Index.cshtml" />
     <Content Include="Views\Shared\_LoginPage.cshtml" />
+    <Content Include="Views\Accounts\Register.cshtml" />
     <Content Include="Views\Accounts\Login.cshtml" />
+    <Content Include="Views\Reservations\Create.cshtml" />
+    <Content Include="Views\Reservations\Delete.cshtml" />
+    <Content Include="Views\Reservations\Details.cshtml" />
+    <Content Include="Views\Reservations\Edit.cshtml" />
+    <Content Include="Views\Reservations\Index.cshtml" />
+    <Content Include="Views\Reservations\calcPath.cshtml" />
+    <Content Include="Views\Reservations\calcCheapestWay.cshtml" />
+    <Content Include="Views\Reservations\calcFastestWay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -415,6 +451,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906051640592_AddAccountsModel.resx">
       <DependentUpon>201906051640592_AddAccountsModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906180957209_ResrvationModelAdd.resx">
+      <DependentUpon>201906180957209_ResrvationModelAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906180959289_ReservationAddToAccountModel.resx">
+      <DependentUpon>201906180959289_ReservationAddToAccountModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

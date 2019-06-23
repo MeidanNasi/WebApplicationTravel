@@ -21,6 +21,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Admin)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Reservations)
+        </th>
         <th></th>
     </tr>
 
@@ -35,6 +38,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.Admin)
         </td>
+        <th>
+            @Html.DisplayFor(model => item.Reservations)
+        </th>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.AccountId }) |
             @Html.ActionLink("Details", "Details", new { id=item.AccountId }) |

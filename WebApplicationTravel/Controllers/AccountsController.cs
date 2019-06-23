@@ -20,19 +20,6 @@ namespace WebApplicationTravel.Controllers
         {
             return View(db.Accounts.ToList());
         }
-        public ActionResult Login(Account account)
-        {
-            Account ac = db.Accounts.Find(account.AccountId);
-            if(ac!=null)
-            {
-                if (ac.Password.Equals(account.Password))
-                {
-             
-                }
-            }
-           
-            return View();
-        }
 
         // GET: Accounts/Details/5
         public ActionResult Details(int? id)
@@ -137,5 +124,65 @@ namespace WebApplicationTravel.Controllers
             }
             base.Dispose(disposing);
         }
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(Account account)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Accounts.Add(account);
+                db.SaveChanges();
+                ModelState.Clear();
+                ViewBag.Message = account.UserName + " Succesefully registered!";
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(Account account)
+        {
+            var user = db.Accounts.Single(u => u.UserName == account.UserName && u.Password == account.Password);
+            if (user != null)
+            {
+                Session["UserName"] = user.UserName.ToString();
+                Session["Admin"] = user.Admin;
+                return RedirectToAction("LoggedIn");
+            }
+            else
+            {
+                ModelState.AddModelError("", "User name or password is wrong");
+            }
+
+            return View();
+        }
+
+        public ActionResult LoggedIn()
+        {
+            if (Session["UserName"] != null)
+            {
+                //return View();
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return RedirectToAction("login");
+            }
+        }
+
+        public ActionResult Logout()
+        {
+            Session["UserName"] = null;
+            return RedirectToAction("Index", "Home");
+        }
     }
+
 }
