@@ -17,8 +17,7 @@ namespace WebApplicationTravel.Controllers
         // GET: Reservations
         public ActionResult Index()
         {
-            var reservations = db.Reservations.Include(r => r.Account);
-            return View(reservations.ToList());
+            return View(db.Reservations.ToList());
         }
 
         // GET: Reservations/Details/5
@@ -39,7 +38,6 @@ namespace WebApplicationTravel.Controllers
         // GET: Reservations/Create
         public ActionResult Create()
         {
-            ViewBag.AccountId = new SelectList(db.Accounts, "AccountId", "UserName");
             return View();
         }
 
@@ -48,7 +46,7 @@ namespace WebApplicationTravel.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ReservationId,AccountId")] Reservation reservation)
+        public ActionResult Create([Bind(Include = "ReservationId,totalPrice,totalTime")] Reservation reservation)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +55,6 @@ namespace WebApplicationTravel.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AccountId = new SelectList(db.Accounts, "AccountId", "UserName", reservation.AccountId);
             return View(reservation);
         }
 
@@ -73,7 +70,6 @@ namespace WebApplicationTravel.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AccountId = new SelectList(db.Accounts, "AccountId", "UserName", reservation.AccountId);
             return View(reservation);
         }
 
@@ -82,7 +78,7 @@ namespace WebApplicationTravel.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ReservationId,AccountId")] Reservation reservation)
+        public ActionResult Edit([Bind(Include = "ReservationId,totalPrice,totalTime")] Reservation reservation)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +86,6 @@ namespace WebApplicationTravel.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AccountId = new SelectList(db.Accounts, "AccountId", "UserName", reservation.AccountId);
             return View(reservation);
         }
 
@@ -130,30 +125,44 @@ namespace WebApplicationTravel.Controllers
         }
         public ActionResult calcPath(string from, string dest, string submit)
         {
+            if (Session["UserName"] != null)
+            {
+                Account a = db.Accounts.Find(int.Parse(Session["AccountId"].ToString()));
+                Reservation r;
+                if (submit.Contains("cheapest"))
+                {
+                    r = new Reservation(calcCheapestWay(from, dest));
+                }
+                else
+                {
+                    r = new Reservation(calcFastestWay(from, dest));
+                }
+                r.bulidReservation();
+                r.updateResAtAccount(a);
+                db.SaveChanges();
+                Account b = db.Accounts.Find(a.AccountId);
 
-            if (submit.Contains("cheapest"))
-            {
-                return calcCheapestWay(from, dest);
+                return View();
             }
-            if (submit.Contains("fastest"))
+            else
             {
-                return calcFastestWay(from, dest);
+                return null; //need to show "please log in first"+button
             }
-            return View();
         }
-        public ActionResult calcCheapestWay(string source, string dest)
+        public LinkedList<string> calcCheapestWay(string source, string dest)
         {
             BestFirstSearch bfs = new BestFirstSearch();
             bfs.BuildGraph();
             bfs.Search(source, dest, "price");
-            return View();
+            return bfs.path;
         }
-        public ActionResult calcFastestWay(string source, string dest)
+        public LinkedList<string> calcFastestWay(string source, string dest)
         {
             BestFirstSearch bfs = new BestFirstSearch();
             bfs.BuildGraph();
             bfs.Search(source, dest, "time");
-            return View();
+            return bfs.path;
         }
+
     }
 }

@@ -155,6 +155,8 @@ namespace WebApplicationTravel.Controllers
             {
                 Session["UserName"] = user.UserName.ToString();
                 Session["Admin"] = user.Admin;
+                Session["AccountId"] = user.AccountId.ToString();
+                Session["Reservations"] = user.Reservations;
                 return RedirectToAction("LoggedIn");
             }
             else
@@ -182,6 +184,45 @@ namespace WebApplicationTravel.Controllers
         {
             Session["UserName"] = null;
             return RedirectToAction("Index", "Home");
+        }
+        public ActionResult calcPath(string from, string dest, string submit)
+        {
+            if (Session["UserName"] != null)
+            {
+                Account a = db.Accounts.Find(int.Parse(Session["AccountId"].ToString()));
+                Reservation r;
+                if (submit.Contains("cheapest"))
+                {
+                    r = new Reservation(calcCheapestWay(from, dest));
+                }
+                else
+                {
+                    r = new Reservation(calcFastestWay(from, dest));
+                }
+                r.bulidReservation();
+                //a.Reservations.AddFirst(r);
+                db.SaveChanges();
+
+                return RedirectToAction("Index", "Accounts");
+            }
+            else
+            {
+                return null; //need to show "please log in first"+button
+            }
+        }
+        public LinkedList<string> calcCheapestWay(string source, string dest)
+        {
+            BestFirstSearch bfs = new BestFirstSearch();
+            bfs.BuildGraph();
+            bfs.Search(source, dest, "price");
+            return bfs.path;
+        }
+        public LinkedList<string> calcFastestWay(string source, string dest)
+        {
+            BestFirstSearch bfs = new BestFirstSearch();
+            bfs.BuildGraph();
+            bfs.Search(source, dest, "time");
+            return bfs.path;
         }
     }
 

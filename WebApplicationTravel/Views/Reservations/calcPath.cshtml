@@ -1,17 +1,28 @@
-﻿
+﻿@model WebApplicationTravel.Models.Account
+
 @{
-    Layout = null;
+    ViewBag.Title = "calcPath";
 }
 
-<!DOCTYPE html>
+<h2>calcPath</h2>
+@if (Session["UserName"] != null)
+{
+    <input type="hidden" value="@Session["Reservations"]" id="myHiddenVar" />
+    var x = Session["Reservations"];
+    foreach(var item in x)
+    {
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>calcPath</title>
-</head>
-<body>
-    <div> 
-    </div>
-</body>
-</html>
+    }
+
+
+    var session = HttpContext.Current.Session;
+
+    <p>@session["Reservations"].ToString()</p>
+  
+}
+else
+{
+      <li>@Html.ActionLink("Sign-in", "Login", "Accounts")</li>
+      <li>@Html.ActionLink("Sign-up", "Register", "Accounts")</li>
+}
+

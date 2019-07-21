@@ -193,6 +193,42 @@
     <Compile Include="Migrations\201906180959289_ReservationAddToAccountModel.Designer.cs">
       <DependentUpon>201906180959289_ReservationAddToAccountModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906230801315_updateReservation.cs" />
+    <Compile Include="Migrations\201906230801315_updateReservation.Designer.cs">
+      <DependentUpon>201906230801315_updateReservation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907210954157_updateReservation1.cs" />
+    <Compile Include="Migrations\201907210954157_updateReservation1.Designer.cs">
+      <DependentUpon>201907210954157_updateReservation1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907211007576_updateReservation11.cs" />
+    <Compile Include="Migrations\201907211007576_updateReservation11.Designer.cs">
+      <DependentUpon>201907211007576_updateReservation11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907211019349_addReservationToAccount.cs" />
+    <Compile Include="Migrations\201907211019349_addReservationToAccount.Designer.cs">
+      <DependentUpon>201907211019349_addReservationToAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907211051506_changeRes.cs" />
+    <Compile Include="Migrations\201907211051506_changeRes.Designer.cs">
+      <DependentUpon>201907211051506_changeRes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907211100316_changeResInAccoint.cs" />
+    <Compile Include="Migrations\201907211100316_changeResInAccoint.Designer.cs">
+      <DependentUpon>201907211100316_changeResInAccoint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907211119036_fixRes.cs" />
+    <Compile Include="Migrations\201907211119036_fixRes.Designer.cs">
+      <DependentUpon>201907211119036_fixRes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907211132504_fixAccount.cs" />
+    <Compile Include="Migrations\201907211132504_fixAccount.Designer.cs">
+      <DependentUpon>201907211132504_fixAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907211158158_fixAccount1.cs" />
+    <Compile Include="Migrations\201907211158158_fixAccount1.Designer.cs">
+      <DependentUpon>201907211158158_fixAccount1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BestFirstSearch.cs" />
     <Compile Include="Models\City.cs" />
@@ -419,9 +455,8 @@
     <Content Include="Views\Reservations\Details.cshtml" />
     <Content Include="Views\Reservations\Edit.cshtml" />
     <Content Include="Views\Reservations\Index.cshtml" />
+    <Content Include="Views\Accounts\CurrentReservation.cshtml" />
     <Content Include="Views\Reservations\calcPath.cshtml" />
-    <Content Include="Views\Reservations\calcCheapestWay.cshtml" />
-    <Content Include="Views\Reservations\calcFastestWay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -457,6 +492,33 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906180959289_ReservationAddToAccountModel.resx">
       <DependentUpon>201906180959289_ReservationAddToAccountModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906230801315_updateReservation.resx">
+      <DependentUpon>201906230801315_updateReservation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907210954157_updateReservation1.resx">
+      <DependentUpon>201907210954157_updateReservation1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907211007576_updateReservation11.resx">
+      <DependentUpon>201907211007576_updateReservation11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907211019349_addReservationToAccount.resx">
+      <DependentUpon>201907211019349_addReservationToAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907211051506_changeRes.resx">
+      <DependentUpon>201907211051506_changeRes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907211100316_changeResInAccoint.resx">
+      <DependentUpon>201907211100316_changeResInAccoint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907211119036_fixRes.resx">
+      <DependentUpon>201907211119036_fixRes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907211132504_fixAccount.resx">
+      <DependentUpon>201907211132504_fixAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907211158158_fixAccount1.resx">
+      <DependentUpon>201907211158158_fixAccount1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -14,7 +14,7 @@ namespace WebApplicationTravel.Models
         Vertex goal;
         MSGDBContext db = new MSGDBContext();
         Dictionary<string, Vertex> vertices = new Dictionary<string, Vertex>();
-        LinkedList<string> path = new LinkedList<string>();
+        public LinkedList<string> path = new LinkedList<string>();
 
         public void BuildGraph()
         {

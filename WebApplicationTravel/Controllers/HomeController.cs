@@ -9,6 +9,7 @@ namespace WebApplicationTravel.Controllers
 {
     public class HomeController : Controller
     {
+     
         public ActionResult Index()
         {
             return View();
@@ -27,6 +28,6 @@ namespace WebApplicationTravel.Controllers
 
             return View();
         }
-        
+    
     }
 }
