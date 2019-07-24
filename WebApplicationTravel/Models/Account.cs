@@ -14,7 +14,6 @@ namespace WebApplicationTravel.Models
         [Required]
         public string Password{ get; set; }
         public Boolean Admin { get; set; }
-        public LinkedList<LinkedList<string>> Reservations = new LinkedList<LinkedList<string>>();
 
     }
 }

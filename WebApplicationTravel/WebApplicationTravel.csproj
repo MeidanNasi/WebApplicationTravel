@@ -229,19 +229,26 @@
     <Compile Include="Migrations\201907211158158_fixAccount1.Designer.cs">
       <DependentUpon>201907211158158_fixAccount1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907241158041_addReservationBuilder.cs" />
+    <Compile Include="Migrations\201907241158041_addReservationBuilder.Designer.cs">
+      <DependentUpon>201907241158041_addReservationBuilder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907241309489_addReservationBuilder2.cs" />
+    <Compile Include="Migrations\201907241309489_addReservationBuilder2.Designer.cs">
+      <DependentUpon>201907241309489_addReservationBuilder2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BestFirstSearch.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Connections.cs" />
     <Compile Include="Models\Country.cs" />
-    <Compile Include="Models\Dijakstra.cs" />
     <Compile Include="Models\MSGDBContext.cs" />
     <Compile Include="Models\Point.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\PriorityQueue.cs" />
     <Compile Include="Models\Reservation.cs" />
+    <Compile Include="Models\ReservationBuilder.cs" />
     <Compile Include="Models\Vertex.cs" />
-    <Compile Include="Models\Weight.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -270,6 +277,7 @@
     <Content Include="Content\MyTemplate\images\cover_bg_3.jpg" />
     <Content Include="Content\MyTemplate\images\cover_bg_4.jpg" />
     <Content Include="Content\MyTemplate\images\cover_bg_5.jpg" />
+    <Content Include="Content\MyTemplate\images\giphy.gif" />
     <Content Include="Content\MyTemplate\images\loc.png" />
     <Content Include="Content\MyTemplate\images\place-1.jpg" />
     <Content Include="Content\MyTemplate\images\place-10.jpg" />
@@ -455,8 +463,7 @@
     <Content Include="Views\Reservations\Details.cshtml" />
     <Content Include="Views\Reservations\Edit.cshtml" />
     <Content Include="Views\Reservations\Index.cshtml" />
-    <Content Include="Views\Accounts\CurrentReservation.cshtml" />
-    <Content Include="Views\Reservations\calcPath.cshtml" />
+    <Content Include="Views\Reservations\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -519,6 +526,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907211158158_fixAccount1.resx">
       <DependentUpon>201907211158158_fixAccount1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907241158041_addReservationBuilder.resx">
+      <DependentUpon>201907241158041_addReservationBuilder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907241309489_addReservationBuilder2.resx">
+      <DependentUpon>201907241309489_addReservationBuilder2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

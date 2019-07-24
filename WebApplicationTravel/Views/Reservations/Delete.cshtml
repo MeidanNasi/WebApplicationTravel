@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = "Delete";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Delete</h2>
@@ -13,19 +12,11 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.totalPrice)
+            @Html.DisplayNameFor(model => model.Account.UserName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.totalPrice)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.totalTime)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.totalTime)
+            @Html.DisplayFor(model => model.Account.UserName)
         </dd>
 
     </dl>

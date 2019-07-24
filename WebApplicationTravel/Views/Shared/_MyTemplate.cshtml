@@ -83,34 +83,21 @@
                 <nav id="fh5co-menu-wrap" role="navigation">
                     <ul class="sf-menu" id="fh5co-primary-menu">
                         <li class="active">@Html.ActionLink("Home", "Index", "Home")</li>
-                        @*<li>
-                            <a href="vacation.html" class="fh5co-sub-ddown">Vacations</a>
-                            <ul class="fh5co-sub-menu">
-                                <li><a href="#">Family</a></li>
-                                <li><a href="#">CSS3 &amp; HTML5</a></li>
-                                <li><a href="#">Angular JS</a></li>
-                                <li><a href="#">Node JS</a></li>
-                                <li><a href="#">Django &amp; Python</a></li>
-                            </ul>
-                        </li>*@
                         <li><a href="flight.html">Flights</a></li>
-                        @*<li><a href="hotel.html">Hotel</a></li>*@
                         <li><a href="car.html">Car</a></li>
-                        @*<li><a href="blog.html">Blog</a></li>*@
-                       @* <li><a href="Contact.cshtml">About us</a></li>*@
                 
                         @if (Session["UserName"] != null)
                         {
-                            <li>@Html.ActionLink("Hello " + Session["UserName"], "getFlights", "Accounts")</li>
+                            <li>@Html.ActionLink("Hello " + Session["UserName"], "Profile", "Reservations")</li>
                             <li>@Html.ActionLink("Logout", "Logout", "Accounts")</li>
-                            if (Session["Admin"] != null)
+                            if (Session["Admin"] == "admin")
                             {
                                 <li>@Html.ActionLink("DataBase", "Index", "Cities")</li>
                             }
                         }
                         else
                         {
-                            <li>@Html.ActionLink("Sign-in", "Login", "Accounts")</li>
+                            <li>@Html.ActionLink("Log-in", "Login", "Accounts")</li>
                             <li>@Html.ActionLink("Sign-up", "Register", "Accounts")</li>
                         }
                     </ul>

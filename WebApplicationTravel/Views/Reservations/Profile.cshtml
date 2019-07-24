@@ -1,0 +1,40 @@
+﻿
+@model IEnumerable<WebApplicationTravel.Models.Reservation>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<h1>Your Profile</h1>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Profile</title>
+</head>
+<body>
+  
+<table class="table">  
+    <tr>
+        <th>
+            <h4>Reservation number</h4>
+        </th>
+        <th>
+            <h4>Reservation Details</h4>
+        </th>
+
+    </tr>
+@foreach (var item in Model)
+{
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TheReservation)
+            </td>
+        </tr>
+
+}
+</body>
+</html>

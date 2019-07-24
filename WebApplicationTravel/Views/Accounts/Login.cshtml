@@ -10,10 +10,15 @@
 <div class="sub-main-w3">
     <div class="bg-content-w3pvt">
         <div class="top-content-style">
-            <img src="@Url.Content("~/Content/LoginPage/")images/msg.jpg" alt="" />
+            <img src="@Url.Content("~/Content/LoginPage/")images/msg.jpg" alt="" />            
         </div>
         <form action="Login" method="post">
             <p class="legend">Login Here<span class="fa fa-hand-o-down"></span></p>
+            @if (Session["wrong password"] != null)
+            {
+                <h4 style="color:Tomato;">Wrong User Name/Password!</h4>
+                <h5 style="color:Tomato;">Please try again.</h5>
+            }
             <div class="input">
                 <input type="text" placeholder="User Name" name="UserName" required />
                 <span class="fa fa-envelope"></span>

@@ -17,7 +17,8 @@ namespace WebApplicationTravel.Controllers
         // GET: Reservations
         public ActionResult Index()
         {
-            return View(db.Reservations.ToList());
+            var reservations = db.Reservations.Include(r => r.Account);
+            return View(reservations.ToList());
         }
 
         // GET: Reservations/Details/5
@@ -38,6 +39,7 @@ namespace WebApplicationTravel.Controllers
         // GET: Reservations/Create
         public ActionResult Create()
         {
+            ViewBag.AccountId = new SelectList(db.Accounts, "AccountId", "UserName");
             return View();
         }
 
@@ -46,7 +48,7 @@ namespace WebApplicationTravel.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ReservationId,totalPrice,totalTime")] Reservation reservation)
+        public ActionResult Create([Bind(Include = "ReservationId,AccountId")] Reservation reservation)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +57,7 @@ namespace WebApplicationTravel.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.AccountId = new SelectList(db.Accounts, "AccountId", "UserName", reservation.AccountId);
             return View(reservation);
         }
 
@@ -70,6 +73,7 @@ namespace WebApplicationTravel.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.AccountId = new SelectList(db.Accounts, "AccountId", "UserName", reservation.AccountId);
             return View(reservation);
         }
 
@@ -78,7 +82,7 @@ namespace WebApplicationTravel.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ReservationId,totalPrice,totalTime")] Reservation reservation)
+        public ActionResult Edit([Bind(Include = "ReservationId,AccountId")] Reservation reservation)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +90,7 @@ namespace WebApplicationTravel.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.AccountId = new SelectList(db.Accounts, "AccountId", "UserName", reservation.AccountId);
             return View(reservation);
         }
 
@@ -123,30 +128,53 @@ namespace WebApplicationTravel.Controllers
             }
             base.Dispose(disposing);
         }
+
         public ActionResult calcPath(string from, string dest, string submit)
         {
             if (Session["UserName"] != null)
             {
+                var c = db.Cities.SingleOrDefault(s => s.CityName == from);
+                var d = db.Cities.SingleOrDefault(s => s.CityName == from);
+                if (c == null)
+                {
+                    Session["wrong source"] = true;
+                    return RedirectToAction("Index", "Home");
+                }
+                if (d == null)
+                {
+                    Session["wrong dest"] = true;
+                    return RedirectToAction("Index", "Home");
+                }
                 Account a = db.Accounts.Find(int.Parse(Session["AccountId"].ToString()));
-                Reservation r;
+                ReservationBuilder r;
                 if (submit.Contains("cheapest"))
                 {
-                    r = new Reservation(calcCheapestWay(from, dest));
+                    r = new ReservationBuilder(calcCheapestWay(from, dest));
                 }
                 else
                 {
-                    r = new Reservation(calcFastestWay(from, dest));
+                    r = new ReservationBuilder(calcFastestWay(from, dest));
                 }
                 r.bulidReservation();
-                r.updateResAtAccount(a);
-                db.SaveChanges();
-                Account b = db.Accounts.Find(a.AccountId);
-
-                return View();
+                LinkedList<string> res = r.updateReservation();
+                if (res != null)
+                {
+                    Reservation reservation = new Reservation();
+                    reservation.AccountId = a.AccountId;
+                    reservation.Account = a;
+                    foreach(string s in res)
+                    {
+                        reservation.TheReservation += s + "\n";
+                    }
+                    db.Reservations.Add(reservation);
+                    db.SaveChanges();
+                }
+                else return View();//pop up no path msg               
+                return RedirectToAction("Profile", "Reservations");
             }
             else
             {
-                return null; //need to show "please log in first"+button
+                return RedirectToAction("login","Accounts"); //need to show "please log in first"+button
             }
         }
         public LinkedList<string> calcCheapestWay(string source, string dest)
@@ -164,5 +192,12 @@ namespace WebApplicationTravel.Controllers
             return bfs.path;
         }
 
+        public ActionResult Profile()
+        {
+            Account a = db.Accounts.Find(int.Parse(Session["AccountId"].ToString()));
+            var accountReservations = db.Reservations.Where(c => c.AccountId == a.AccountId);
+
+            return View(accountReservations.ToList());
+        }
     }
 }
