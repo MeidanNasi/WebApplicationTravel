@@ -28,6 +28,12 @@ namespace WebApplicationTravel.Controllers
 
             return View();
         }
-    
+        public ActionResult ComingSoon()
+        {
+            ViewBag.Message = "Coming Soon.";
+
+            return View();
+        }
+
     }
 }
