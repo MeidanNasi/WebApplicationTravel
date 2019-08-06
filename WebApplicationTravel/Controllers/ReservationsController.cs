@@ -129,7 +129,7 @@ namespace WebApplicationTravel.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult calcPath(string from, string dest, string submit)
+        public ActionResult calcPath(string from, string dest,string date, string submit)
         {
             if (Session["UserName"] != null)
             {
@@ -162,15 +162,16 @@ namespace WebApplicationTravel.Controllers
                     Reservation reservation = new Reservation();
                     reservation.AccountId = a.AccountId;
                     reservation.Account = a;
+                    reservation.Departure = date;
                     foreach(string s in res)
                     {
-                        reservation.TheReservation += s + "\n";
+                        reservation.TheReservation += s + "       |       ";
                     }
                     db.Reservations.Add(reservation);
                     db.SaveChanges();
+                    return RedirectToAction("ShowReservation", "Reservations", reservation);
                 }
                 else return View();//pop up no path msg               
-                return RedirectToAction("Profile", "Reservations");
             }
             else
             {
@@ -196,8 +197,19 @@ namespace WebApplicationTravel.Controllers
         {
             Account a = db.Accounts.Find(int.Parse(Session["AccountId"].ToString()));
             var accountReservations = db.Reservations.Where(c => c.AccountId == a.AccountId);
-
             return View(accountReservations.ToList());
+        }
+        public ActionResult ShowReservation(Reservation r)
+        {
+            ViewBag.res = r;
+            return View();
+        }
+        public ActionResult DoNotOrder(int? id)
+        {
+            Reservation r = db.Reservations.Find(id);
+            db.Reservations.Remove(r);
+            db.SaveChanges(); 
+            return RedirectToAction("Index", "Home");
         }
     }
 }

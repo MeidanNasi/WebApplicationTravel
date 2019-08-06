@@ -8,6 +8,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!------------------------------------------------------------->
+    <meta name="viewport" content="width=device-width" />
+
+    @* Template Header files *@
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>MSG Find your next vacation &mdash; 100% Free Fully Responsive HTML5 Template by FREEHTML5.co</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
+    <meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
+    <meta name="author" content="FREEHTML5.CO" />
+
+
+    <!-- Facebook and Twitter integration -->
+    <meta property="og:title" content="" />
+    <meta property="og:image" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:site_name" content="" />
+    <meta property="og:description" content="" />
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:image" content="" />
+    <meta name="twitter:url" content="" />
+    <meta name="twitter:card" content="" />
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/MyTemplate/")css/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="@Url.Content("~/Content/MyTemplate/")css/icomoon.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/MyTemplate/")css/bootstrap.css">
+    <!-- Superfish -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/MyTemplate/")css/superfish.css">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/MyTemplate/")css/magnific-popup.css">
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/MyTemplate/")css/bootstrap-datepicker.min.css">
+    <!-- CS Select -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/MyTemplate/")css/cs-select.css">
+    <link rel="stylesheet" href="@Url.Content("~/Content/MyTemplate/")css/cs-skin-border.css">
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/MyTemplate/")css/style.css">
+
+    <script src="@Url.Content("~/Content/MyTemplate/")js/modernizr-2.6.2.min.js"></script>
+
+    <!------------------------------------------------------------->
     <title>Table V04</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,7 +79,38 @@
     <!--===============================================================================================-->
 </head>
 <body>
+    <header id="fh5co-header-section" class="sticky-banner">
+        <div class="container">
+            <div class="nav-header">
+                <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
+                <h1 id="fh5co-logo"><a><i class="icon-airplane"></i>MSG - Find your next vacation</a></h1>
+                <!-- START #fh5co-menu-wrap -->
+                <nav id="fh5co-menu-wrap" role="navigation">
+                    <ul class="sf-menu" id="fh5co-primary-menu">
+                        <li class="active">@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li><a href="flight.html">Flights</a></li>
+                        <li><a href="car.html">Car</a></li>
 
+                        @if (Session["UserName"] != null)
+                        {
+                            <li>@Html.ActionLink("Hello " + Session["UserName"], "Profile", "Reservations")</li>
+                            <li>@Html.ActionLink("Logout", "Logout", "Accounts")</li>
+                            if (Session["Admin"] == "admin")
+                            {
+                                <li>@Html.ActionLink("DataBase", "Index", "Cities")</li>
+                            }
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Log-in", "Login", "Accounts")</li>
+                            <li>@Html.ActionLink("Sign-up", "Register", "Accounts")</li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+ 
     <div class="limiter">
         <div class="container-table100">
             <div class="wrap-table100">
@@ -39,6 +120,7 @@
                             <thead>
                                 <tr class="row100 head">
                                     <th class="cell100 column1">Reservation Number</th>
+                                    <th class="cell100 column1">Departure date</th>
                                     <th class="cell100 column3">Reservation Detail</th>
                                 </tr>
                             </thead>
@@ -47,22 +129,18 @@
                     <div class="table100-body js-pscroll">
                         <table>
                             <tbody>
-                                <!--<tr class="row100 body">
-                                    <td class="cell100 column1">Like a butterfly</td>
-                                    <td class="cell100 column2">Boxing</td>
-                                    <td class="cell100 column3">9:00 AM - 11:00 AM</td>
-                                    <td class="cell100 column4">Aaron Chapman</td>
-                                    <td class="cell100 column5">10</td>
-                                </tr>-->
-
+                         
                                @foreach (var item in Model)
                                {
                                 <tr>
                                     <td class="cell100 column1">
                                         @Html.DisplayFor(modelItem => item.AccountId)
                                     </td>
-                                    <td class="cell100 column8">
-                                        @Html.DisplayFor(modelItem => item.TheReservation)
+                                    <td class="cell100 column1">
+                                        @Html.DisplayFor(modelItem => item.Departure)
+                                    </td>
+                                    <td class="cell100 column6">
+                                       @Html.DisplayFor(modelItem => item.TheReservation)
                                     </td>
                                 </tr>
 

@@ -43,16 +43,11 @@
                                         </div>
                                         <div class="col-xxs-12 col-xs-6 mt alternate">
                                             <div class="input-field">
-                                                <label for="date-start">Check In:</label>
-                                                <input type="text" class="form-control" id="date-start" placeholder="mm/dd/yyyy" />
+                                                <label for="date-start">Departure date:</label>
+                                                <input type="text" class="form-control" id="date-start" name="date" placeholder="mm/dd/yyyy" />
                                             </div>
                                         </div>
-                                        <div class="col-xxs-12 col-xs-6 mt alternate">
-                                            <div class="input-field">
-                                                <label for="date-end">Check Out:</label>
-                                                <input type="text" class="form-control" id="date-end" placeholder="mm/dd/yyyy" />
-                                            </div>
-                                        </div>
+                                       
                                         <div class="col-xxs-12 col-xs-6 mt">
                                         </div>
                                         <div class="col-xs-12">
@@ -198,95 +193,54 @@
 
 
 <!-- to delete -->
-<!--<div id="fh5co-destination">
+<!--
+    <div id="fh5co-destination">
     <div class="tour-fluid">
         <div class="row">
-            <div class="col-md-12">
-                <ul id="fh5co-destination-list" class="animate-box">
-                    <li class="one-forth text-center" style="background-image: url(images/place-1.jpg); ">
-                        <a href="#">
-                            <div class="case-studies-summary">
-                                <h2>Los Angeles</h2>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="one-forth text-center" style="background-image: url(images/place-2.jpg); ">
-                        <a href="#">
-                            <div class="case-studies-summary">
-                                <h2>Hongkong</h2>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="one-forth text-center" style="background-image: url(images/place-3.jpg); ">
-                        <a href="#">
-                            <div class="case-studies-summary">
-                                <h2>Italy</h2>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="one-forth text-center" style="background-image: url(images/place-4.jpg); ">
-                        <a href="#">
-                            <div class="case-studies-summary">
-                                <h2>Philippines</h2>
-                            </div>
-                        </a>
-                    </li>
-
-                    <li class="one-forth text-center" style="background-image: url(images/place-5.jpg); ">
-                        <a href="#">
-                            <div class="case-studies-summary">
-                                <h2>Japan</h2>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="one-half text-center">
-                        <div class="title-bg">
-                            <div class="case-studies-summary">
-                                <h2>Most Popular Destinations</h2>
-                                <span><a href="#">View All Destinations</a></span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="one-forth text-center" style="background-image: url(images/place-6.jpg); ">
-                        <a href="#">
-                            <div class="case-studies-summary">
-                                <h2>Paris</h2>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="one-forth text-center" style="background-image: url(images/place-7.jpg); ">
-                        <a href="#">
-                            <div class="case-studies-summary">
-                                <h2>Singapore</h2>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="one-forth text-center" style="background-image: url(images/place-8.jpg); ">
-                        <a href="#">
-                            <div class="case-studies-summary">
-                                <h2>Madagascar</h2>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="one-forth text-center" style="background-image: url(images/place-9.jpg); ">
-                        <a href="#">
-                            <div class="case-studies-summary">
-                                <h2>Egypt</h2>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="one-forth text-center" style="background-image: url(images/place-10.jpg); ">
-                        <a href="#">
-                            <div class="case-studies-summary">
-                                <h2>Indonesia</h2>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
+            <div class="col-md-6">
+                <div class="box-testimony animate-box">
+                  
+                    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+                    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+                    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyDriY2lRclAw8fsRAr8mwUcjFk616NAD-E&=false">
+                    </script>
+                    <script type="text/javascript">
+                        function initialize() {
+                            var mapOptions = {
+                                center: new google.maps.LatLng(31.9730, 34.7925),
+                                zoom: 7,
+                                mapTypeId: google.maps.MapTypeId.ROADMAP
+                            };
+                            var infoWindow = new google.maps.InfoWindow();
+                            var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+                            $.getJSON('/Home/ResGoogleMap', function (data) {
+                                $.each(data, function (i, value) {
+                                    var myLatlng = new google.maps.LatLng(value.latitude, value.longitude);
+                                    var marker = new google.maps.Marker({
+                                        position: myLatlng,
+                                        map: map
+                                    })
+                                    marker.setMap(map);
+                                });
+                            });
+                        }
+                    </script>
+                    <link href="~/lib/bootstrap/dist/css/bootstarp-PostTitle_Index.css" rel="stylesheet" />
+                    <h2 class="TitleChange">Google Maps</h2>
+                    <form id="form1" runat="server">
+                        <div id="map_canvas" style="width: 600px; height: 400px"></div>
+                        <br> <input type="button" class="btn btn-success" title="Delete" value="Click here to check all the destinations" onclick="location.href='@Url.Action("Index", "Restaurants", new  { @class = "button" })'" />
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>-->
+
+
+
+
+
 <!-- to delete -->
 <!--
 <footer>

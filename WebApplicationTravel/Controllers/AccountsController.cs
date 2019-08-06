@@ -185,6 +185,7 @@ namespace WebApplicationTravel.Controllers
         public ActionResult Logout()
         {
             Session["UserName"] = null;
+            Session["Admin"] = null;
             return RedirectToAction("Index", "Home");
         }
       

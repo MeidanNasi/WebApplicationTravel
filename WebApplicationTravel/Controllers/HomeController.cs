@@ -9,7 +9,8 @@ namespace WebApplicationTravel.Controllers
 {
     public class HomeController : Controller
     {
-     
+        private MSGDBContext db = new MSGDBContext();
+
         public ActionResult Index()
         {
             return View();
@@ -33,6 +34,25 @@ namespace WebApplicationTravel.Controllers
             ViewBag.Message = "Coming Soon.";
 
             return View();
+        }
+        public ActionResult GoogleMaps()
+        {
+            ViewBag.Message = "GoogleMaps.";
+
+            return View();
+        }
+
+        public JsonResult ResGoogleMap()
+        {
+            var data = from r in db.Cities
+                       select new Point
+                       {
+                           X = r.Coordinate.X,
+                           Y = r.Coordinate.Y
+                       };
+            //viewmodel.resMap = data.ToList();
+            List<Point> resList = data.ToList();
+            return Json(resList);
         }
 
     }

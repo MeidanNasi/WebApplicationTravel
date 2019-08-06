@@ -11,7 +11,7 @@ namespace WebApplicationTravel.Models
         public string TheReservation { get; set; }
         public int AccountId { get; set; }
         public Account Account { get; set; }
-
+        public string Departure { get; set; }
            
     }
 }

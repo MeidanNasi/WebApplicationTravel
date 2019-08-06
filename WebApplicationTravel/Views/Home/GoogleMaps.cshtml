@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "index";
+    Layout = "~/Views/Shared/_GoogleMaps.cshtml";
+}
+<!doctype html>
+<html>
+<body onload="initialize()">
+
+    <h2> MSG </h2>
+    <div class="col-md-4 col-sm-6 fh5co-tours animate-box" data-animate-effect="fadeIn">
+
+        <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnUBowr4LBkxqc1_hOolEMckU8RN507tg&callback=initMap"async defer></script>
+        <script type="text/javascript">
+            function initialize() {
+                var mapOptions = {
+                    center: new google.maps.LatLng(31.9730, 34.7925),
+                    zoom: 7,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                var infoWindow = new google.maps.InfoWindow();
+                var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+                $.getJSON('/Home/ResGoogleMap', function (data) {
+                    $.each(data, function (i, value) {
+                        var myLatlng = new google.maps.LatLng(value.latitude, value.longitude);
+                        var marker = new google.maps.Marker({
+                            position: myLatlng,
+                            map: map
+                        })
+                        marker.setMap(map);
+                    });
+                });
+            }
+        </script>
+    </div>
+
+    <link href="~/lib/bootstrap/dist/css/bootstarp-PostTitle_Index.css" rel="stylesheet" />
+    <form id="form1" runat="server">
+        <div id="map_canvas" style="width: 600px; height: 400px"></div>
+        <br> <input type="button" class="btn btn-success" title="Delete" value="Click here to check all the destantions" onclick="location.href='@Url.Action("GoogleMaps", "Home", new  { @class = "button" })'" />
+    </form>
+</body>
+</html>

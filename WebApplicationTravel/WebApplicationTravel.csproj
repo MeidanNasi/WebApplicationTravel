@@ -237,6 +237,14 @@
     <Compile Include="Migrations\201907241309489_addReservationBuilder2.Designer.cs">
       <DependentUpon>201907241309489_addReservationBuilder2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908060828489_dateAdd.cs" />
+    <Compile Include="Migrations\201908060828489_dateAdd.Designer.cs">
+      <DependentUpon>201908060828489_dateAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908060839326_dateAdd2.cs" />
+    <Compile Include="Migrations\201908060839326_dateAdd2.Designer.cs">
+      <DependentUpon>201908060839326_dateAdd2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BestFirstSearch.cs" />
     <Compile Include="Models\City.cs" />
@@ -607,6 +615,9 @@
     <Content Include="Views\Reservations\Profile.cshtml" />
     <Content Include="Views\Home\ComingSoon.cshtml" />
     <Content Include="Views\Shared\_ComingSoon.cshtml" />
+    <Content Include="Views\Reservations\ShowReservation.cshtml" />
+    <Content Include="Views\Home\GoogleMaps.cshtml" />
+    <Content Include="Views\Shared\_GoogleMaps.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -676,6 +687,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907241309489_addReservationBuilder2.resx">
       <DependentUpon>201907241309489_addReservationBuilder2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908060828489_dateAdd.resx">
+      <DependentUpon>201908060828489_dateAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908060839326_dateAdd2.resx">
+      <DependentUpon>201908060839326_dateAdd2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
