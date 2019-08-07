@@ -30,7 +30,6 @@
     <!--===============================================================================================-->
 </head>
 <body>
-
     <div class="limiter">
         <div class="container-table100">
             <div class="wrap-table100">
@@ -49,12 +48,13 @@
                     <div class="table100-body js-pscroll">
                         <table>
                             <tbody>
-                                @{ 
+                                @{
                                     var res = ViewBag.res;
+                                    string resStr = res.TheReservation;
                                 }
                                 <tr>
                                     <td class="cell100 column1">
-                                       <h3>@res.AccountId</h3>
+                                        <h3>@res.AccountId</h3>
                                     </td>
                                     <td class="cell100 column1">
                                         <h3>@res.Departure</h3>
@@ -67,27 +67,36 @@
                         </table>
                     </div>
                 </div>
+
+                <div id="fh5co-tours" class="fh5co-section-gray">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-1 col-md-offset-2 text-center heading-section animate-box">
+                                <form action=@Url.Action("Profile", "Reservations")>
+                                    <div class="col-xxs-12 col-xs-6 mt">
+                                        <div class="form-group">
+                                            <div>
+                                                <input type="submit" name="id" class="btn btn-primary btn-outline" value="Order now!" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <form action=@Url.Action("DoNotOrder", "Reservations", new { id = @res.ReservationId })>
+                                    <div class="col-xxs-12 col-xs-6 mt">
+                                        <div class="form-group">
+                                            <div>
+                                                <input type="submit" name="id" class="btn btn-primary btn-outline" value="Do not order and go back..." />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <form action=@Url.Action("Profile", "Reservations")>
-        <div class="col-xxs-12 col-xs-6 mt">
-            <div class="form-group">
-                <div>
-                    <input type="submit" name="id" class="btn btn-default" value="Order now!" />
-                </div>
-            </div>
-        </div>
-</form>
-    <form action=@Url.Action("DoNotOrder", "Reservations", new { id = @res.ReservationId })>
-        <div class="col-xxs-12 col-xs-6 mt">
-            <div class="form-group">
-                <div>
-                    <input type="submit" name="id" class="btn btn-default" value="Do not order and go back..." />
-                </div>
-            </div>
-        </div>
-</form>
 
     <!--===============================================================================================-->
     <script src="~/Content/MyTemplate/vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -112,4 +121,5 @@
     <!--===============================================================================================-->
     <script src="~/Content/MyTemplate/js/main.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,40 @@
+﻿
+@model IEnumerable<WebApplicationTravel.Models.Connections>
+
+@{
+    ViewBag.Title = "Flights";
+    Layout = "~/Views/Shared/_MyTemplate.cshtml";
+}
+
+<form asp-controller="Home" asp-action="Flights">
+    <p>
+        Title: <input type="text" name="search">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <h4>You can fly from @ViewData["search"] to:</h4>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DestCity.CityName)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h4>Number of flight from @ViewData["search"]: @ViewBag.count</h4>
+

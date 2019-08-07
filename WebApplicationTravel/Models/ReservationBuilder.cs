@@ -84,14 +84,14 @@ namespace WebApplicationTravel.Models
             if (this.path.Count() == 0) return null;
             LinkedList<string> myReservation = new LinkedList<string>();
             string s = "";
-            myReservation.AddLast("From: " + path.ElementAt(0) + " To: " + path.Last()+"");
+            myReservation.AddLast("From: " + path.ElementAt(0) + " To: " + path.Last());
             for (int i = 0, j = 0; i < path.Count() - 2; i += 2, j++)
             {
                 s += path.ElementAt(i) + " -> " + path.ElementAt(i + 2) + " by " + path.ElementAt(i + 1) + ". Price: " + prices.ElementAt(j) + "$" + " Duration: " + durations.ElementAt(j) + " hours.";
                 myReservation.AddLast(s);
                 s = "";
             }
-            myReservation.AddLast("Total Price: " + this.totalPrice + "$ ,Total Duration: " + this.totalTime+" hours.");
+            myReservation.AddLast("Total Price: " + this.totalPrice + "$ ,Total Duration: " + this.totalTime+ " hours.");
             return myReservation;
         }
     }

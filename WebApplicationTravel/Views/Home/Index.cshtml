@@ -99,7 +99,7 @@
                         <h3>Vehicles</h3>
                         <span>Check our car list!</span>
                         <span class="price">Show'em who roll this shit out!</span>
-                        <a class="btn btn-primary btn-outline" href='ComingSoon'>Go <i class="icon-arrow-right22"></i></a>
+                        <a class="btn btn-primary btn-outline" href="@Url.Action( "ComingSoon", "Home", new { @class = "myactionlink" })">Go<i class="icon-arrow-right22"></i></a>
                     </div>
                 </div>
             </div>
@@ -111,7 +111,7 @@
                         <h3>Accomodations</h3>
                         <span>Check our accomodations list!</span>
                         <span class="price">Airbnb flats, Hotels, Hostels, etc..</span>
-                        <a class="btn btn-primary btn-outline" href='ComingSoon'>Go <i class="icon-arrow-right22"></i></a>
+                        <a class="btn btn-primary btn-outline" href="@Url.Action( "ComingSoon", "Home", new { @class = "myactionlink" })">Go <i class="icon-arrow-right22"></i></a>
                     </div>
                 </div>
             </div>
@@ -123,12 +123,15 @@
                         <h3>Trips</h3>
                         <span>Wanna have the best time ever?</span>
                         <span class="price">Check these experiences out!</span>
-                        <a class="btn btn-primary btn-outline" href='ComingSoon'>Go <i class="icon-arrow-right22"></i></a>
+                        <a class="btn btn-primary btn-outline" href="@Url.Action("ComingSoon", "Home", new { @class = "myactionlink" })">Go <i class="icon-arrow-right22"></i></a>
                     </div>
                 </div>
             </div>
+            <style>
+                .myactionlink:hover{color:white}
+            </style>
             <div class="col-md-12 text-center animate-box">
-                <p><a class="btn btn-primary btn-outline btn-lg" href='ComingSoon'>See All Offers <i class="icon-arrow-right22"></i></a></p>
+                <p><a class="btn btn-primary btn-outline btn-lg" href="@Url.Action("ComingSoon", "Home", new { @class = "myactionlink" })">See All Offers<i class="icon-arrow-right22"></i></a></p>
             </div>
         </div>
     </div>
@@ -241,77 +244,21 @@
 
 
 
-<!-- to delete -->
-<!--
+<!-- maps -->
 <footer>
     <div id="footer">
         <div class="container">
             <div class="row row-bottom-padded-md">
-                <div class="col-md-2 col-sm-2 col-xs-12 fh5co-footer-link">
-                    <h3>About Travel</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                <div class="col-md-8 col-sm-8 col-xs-12 fh5co-footer-link">
+                    <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1Rbz7bDxk4lDQWdWiM54VI_AcAirHLxQn" width="640" height="480"></iframe>
                 </div>
-                <div class="col-md-2 col-sm-2 col-xs-12 fh5co-footer-link">
-                    <h3>Top Flights Routes</h3>
-                    <ul>
-                        <li><a href="#">Manila flights</a></li>
-                        <li><a href="#">Dubai flights</a></li>
-                        <li><a href="#">Bangkok flights</a></li>
-                        <li><a href="#">Tokyo Flight</a></li>
-                        <li><a href="#">New York Flights</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-2 col-sm-2 col-xs-12 fh5co-footer-link">
-                    <h3>Top Hotels</h3>
-                    <ul>
-                        <li><a href="#">Boracay Hotel</a></li>
-                        <li><a href="#">Dubai Hotel</a></li>
-                        <li><a href="#">Singapore Hotel</a></li>
-                        <li><a href="#">Manila Hotel</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-2 col-sm-2 col-xs-12 fh5co-footer-link">
-                    <h3>Interest</h3>
-                    <ul>
-                        <li><a href="#">Beaches</a></li>
-                        <li><a href="#">Family Travel</a></li>
-                        <li><a href="#">Budget Travel</a></li>
-                        <li><a href="#">Food &amp; Drink</a></li>
-                        <li><a href="#">Honeymoon and Romance</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-2 col-sm-2 col-xs-12 fh5co-footer-link">
-                    <h3>Best Places</h3>
-                    <ul>
-                        <li><a href="#">Boracay Beach</a></li>
-                        <li><a href="#">Dubai</a></li>
-                        <li><a href="#">Singapore</a></li>
-                        <li><a href="#">Hongkong</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-2 col-sm-2 col-xs-12 fh5co-footer-link">
-                    <h3>Affordable</h3>
-                    <ul>
-                        <li><a href="#">Food &amp; Drink</a></li>
-                        <li><a href="#">Fare Flights</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 col-md-offset-3 text-center">
-                    <p class="fh5co-social-icons">
-                        <a href="#"><i class="icon-twitter2"></i></a>
-                        <a href="#"><i class="icon-facebook2"></i></a>
-                        <a href="#"><i class="icon-instagram"></i></a>
-                        <a href="#"><i class="icon-dribbble2"></i></a>
-                        <a href="#"><i class="icon-youtube"></i></a>
-                    </p>
-                    <p>Copyright 2016 Free Html5 <a href="#">Module</a>. All Rights Reserved. <br>Made with <i class="icon-heart3"></i> by <a href="http://freehtml5.co/" target="_blank">Freehtml5.co</a> / Demo Images: <a href="https://unsplash.com/" target="_blank">Unsplash</a></p>
                 </div>
             </div>
         </div>
-    </div>
-</footer> -->
+</footer>
+
+<!-- like button--> 
+<iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FMSG-102109414480690%2F%3Fmodal%3Dadmin_todo_tour&width=600&layout=standard&action=like&size=large&show_faces=true&share=true&height=80&appId=697109400702949" width="600" height="80" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
 
 
 

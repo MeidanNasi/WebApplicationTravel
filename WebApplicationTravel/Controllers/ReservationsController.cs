@@ -165,7 +165,7 @@ namespace WebApplicationTravel.Controllers
                     reservation.Departure = date;
                     foreach(string s in res)
                     {
-                        reservation.TheReservation += s + "       |       ";
+                        reservation.TheReservation += s+ " <br /> ";
                     }
                     db.Reservations.Add(reservation);
                     db.SaveChanges();

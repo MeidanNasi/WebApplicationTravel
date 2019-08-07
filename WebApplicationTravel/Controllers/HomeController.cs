@@ -9,7 +9,8 @@ namespace WebApplicationTravel.Controllers
 {
     public class HomeController : Controller
     {
-        private MSGDBContext db = new MSGDBContext();
+        private readonly MSGDBContext db = new MSGDBContext();
+
 
         public ActionResult Index()
         {
@@ -53,6 +54,20 @@ namespace WebApplicationTravel.Controllers
             //viewmodel.resMap = data.ToList();
             List<Point> resList = data.ToList();
             return Json(resList);
+        }
+        public ActionResult Flights(string search)
+        {
+            var cons = from c in db.Connections
+                      select c;
+
+            if (!String.IsNullOrEmpty(search))
+            {
+                ViewData["search"] = search;
+                cons = cons.Where(con => con.SourceCity.CityName == search && con.FlightAvailabilty==true);
+                ViewBag.count = cons.GroupBy(x => x.DestCity).Count();
+            }
+            var connections = db.Connections;
+            return View(cons.ToList());
         }
 
     }
