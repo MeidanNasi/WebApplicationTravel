@@ -18,8 +18,11 @@
                 </button>
                 @Html.ActionLink("DataBase View", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
+            @if (Session["Admin"] == "admin")
+            {
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+
                     <li>@Html.ActionLink("Cities", "Index", "Cities")</li>
                     <li>@Html.ActionLink("Countries", "Index", "Countries")</li>
                     <li>@Html.ActionLink("Connections", "Index", "Connections")</li>
@@ -28,8 +31,10 @@
                     <li>@Html.ActionLink("Back", "Index", "Home")</li>
                 </ul>
             </div>
+            }
         </div>
     </div>
+
     <div class="container body-content">
         @RenderBody()
         <hr />

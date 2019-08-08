@@ -15,8 +15,19 @@ namespace WebApplicationTravel.Controllers
         private MSGDBContext db = new MSGDBContext();
 
         // GET: Connections
-        public ActionResult Index()
+        public ActionResult Index(string search)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var s = from c in db.Connections
+                    select c;
+            if (!String.IsNullOrEmpty(search))
+            {
+                s = s.Where(x => x.SourceCity.CityName.Equals(search)).Include(c => c.SourceCity);
+                return View(s.ToList());
+            }
             var connections = db.Connections.Include(c => c.DestCity).Include(c => c.SourceCity);
             return View(connections.ToList());
         }
@@ -24,6 +35,10 @@ namespace WebApplicationTravel.Controllers
         // GET: Connections/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +54,10 @@ namespace WebApplicationTravel.Controllers
         // GET: Connections/Create
         public ActionResult Create()
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             ViewBag.DestCityId = new SelectList(db.Cities, "CityId", "CityName");
             ViewBag.SourceCityId = new SelectList(db.Cities, "CityId", "CityName");
             return View();
@@ -51,6 +70,10 @@ namespace WebApplicationTravel.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ConnectionsId,SourceCityId,DestCityId,FlightDuration,CarDuration,FlightPrice,CarPrice,CarAvailabilty,FlightAvailabilty")] Connections connections)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (ModelState.IsValid)
             {
                 PriceAndDurationCalc(connections);
@@ -67,6 +90,10 @@ namespace WebApplicationTravel.Controllers
         // GET: Connections/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -88,6 +115,10 @@ namespace WebApplicationTravel.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ConnectionsId,SourceCityId,DestCityId,FlightDuration,CarDuration,FlightPrice,CarPrice,CarAvailabilty,FlightAvailabilty")] Connections connections)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (ModelState.IsValid)
             {
                 PriceAndDurationCalc(connections);
@@ -103,6 +134,10 @@ namespace WebApplicationTravel.Controllers
         // GET: Connections/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -120,6 +155,10 @@ namespace WebApplicationTravel.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             Connections connections = db.Connections.Find(id);
             db.Connections.Remove(connections);
             db.SaveChanges();
@@ -139,20 +178,20 @@ namespace WebApplicationTravel.Controllers
             City source = db.Cities.Find(connection.SourceCityId);
             City dest = db.Cities.Find(connection.DestCityId);
 
-            double x0 = source.Coordinate.X;
-            double x1 = dest.Coordinate.X;
-            double y0 = source.Coordinate.Y;
-            double y1 = dest.Coordinate.Y;
+            double x0 = source.Longitude;
+            double x1 = dest.Longitude;
+            double y0 = source.Latitude;
+            double y1 = dest.Latitude;
             double distance = Math.Sqrt(Math.Pow(x0 - x1, 2) + Math.Pow(y0 - y1, 2));
             if (connection.FlightAvailabilty)
             {
-                connection.FlightDuration =System.Math.Round( distance / 5, 2);
+                connection.FlightDuration = System.Math.Round(distance / 5, 2);
                 connection.FlightPrice = connection.FlightDuration * source.FlightPriceKey;
             }
             else
             {
-                connection.FlightDuration = null;
-                connection.FlightPrice = null;
+                connection.FlightDuration = 0;
+                connection.FlightPrice = 0;
             }
             if (connection.CarAvailabilty)
             {
@@ -161,11 +200,37 @@ namespace WebApplicationTravel.Controllers
             }
             else
             {
-                connection.CarDuration = null;
-                connection.CarPrice = null;
+                connection.CarDuration = 0;
+                connection.CarPrice = 0;
             }
-            
+
         }
-     
+        public ActionResult ConnectionSearch(string sourceCity, string flightDuration, string flightPrice)
+        {
+            var cons = from c in db.Connections
+                       select c;
+            if (!String.IsNullOrEmpty(flightDuration))
+            {
+                var duration = Convert.ToDouble(flightDuration);
+                cons = cons.Where(p => p.FlightDuration <= duration || flightDuration == null || flightDuration == "");
+            }
+            if (!String.IsNullOrEmpty(flightPrice))
+            {
+                var price = Convert.ToDouble(flightPrice);
+                cons = cons.Where(p => p.FlightPrice <= price || flightPrice == null || flightPrice == "");
+            }
+            cons = cons.Where(p => p.SourceCity.CityName.ToLower().Contains(sourceCity.ToLower()) || sourceCity == null || sourceCity == "");
+            
+            
+
+            //if (!String.IsNullOrEmpty(sourceCity) /*|| !String.IsNullOrEmpty(flightDuration) || !String.IsNullOrEmpty(flightPrice)*/)
+            //{
+            //    cons = db.Connections.Where(c => c.SourceCity.CityName.Equals(sourceCity) && c.FlightDuration <=flightDuration && c.FlightPrice <=flightPrice);
+
+            //}
+            return View(cons.ToList());
+        }
+
     }
 }
+   

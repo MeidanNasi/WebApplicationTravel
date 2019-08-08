@@ -16,14 +16,29 @@ namespace WebApplicationTravel.Controllers
 
         // GET: Accounts
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(string search)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var s = from c in db.Accounts
+                    select c;
+            if (!String.IsNullOrEmpty(search))
+            {
+                s = s.Where(x => x.UserName.Equals(search));
+                return View(s.ToList());
+            }
             return View(db.Accounts.ToList());
         }
 
         // GET: Accounts/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +54,10 @@ namespace WebApplicationTravel.Controllers
         // GET: Accounts/Create
         public ActionResult Create()
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
@@ -49,6 +68,10 @@ namespace WebApplicationTravel.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "AccountId,UserName,Password,Admin")] Account account)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (ModelState.IsValid)
             {
                 db.Accounts.Add(account);
@@ -62,6 +85,10 @@ namespace WebApplicationTravel.Controllers
         // GET: Accounts/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -81,6 +108,10 @@ namespace WebApplicationTravel.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "AccountId,UserName,Password,Admin")] Account account)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(account).State = EntityState.Modified;
@@ -93,6 +124,10 @@ namespace WebApplicationTravel.Controllers
         // GET: Accounts/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -110,7 +145,16 @@ namespace WebApplicationTravel.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             Account account = db.Accounts.Find(id);
+            IEnumerable<Reservation> q = db.Reservations.Where(c => c.AccountId==id);
+            foreach (Reservation c in q)
+            {
+                db.Reservations.Remove(c);
+            }
             db.Accounts.Remove(account);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -154,6 +198,7 @@ namespace WebApplicationTravel.Controllers
             if (user != null)
             {
                 Session["UserName"] = user.UserName.ToString();
+                Session["Admin"] = null;
                 if (user.Admin)
                     Session["Admin"] = "admin";
                 Session["AccountId"] = user.AccountId.ToString();

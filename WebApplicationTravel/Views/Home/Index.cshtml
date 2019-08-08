@@ -12,8 +12,7 @@
                 <div class="row">
                     <div class="col-sm-5 col-md-5">
                         <div class="tabulation animate-box">
-                            
-
+                    
                             <!-- Tab panes -->
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane active" id="roundtrip">
@@ -52,10 +51,21 @@
                                         </div>
                                         <div class="col-xs-12">
                                             <input type="submit" class="btn btn-primary btn-block" name="submit" value="Find me the cheapest way!">
+                                            @*@if (Session["no path"] != null)
+                                            {
+                                                <h6 style="color:Tomato;">No path!</h6>
+                                                    <h6 style="color:Tomato;">Please try again.</h6>
+                                            }*@
                                         </div>
                                         <div class="col-xs-12">
                                             <br>
                                             <input type="submit" class="btn btn-primary btn-block" name="submit" value="Find me the fastest way!">
+                                            @if (Session["no path"]!=null)
+                                            {
+                                                <h6 style="color:Tomato;">No path!</h6>
+                                                    <h6 style="color:Tomato;">Please try again.</h6> 
+                                            }
+                                            @Session["no path"]
                                         </div>
                                         </form>
                                     </div>
@@ -65,7 +75,7 @@
                         </div>
                     </div>
                     <div class="desc2 animate-box">
-                        <div class="col-sm-7 col-sm-push-1 col-md-7 col-md-push-2">
+                        <div class="col-sm-15 col-sm-push-10 col-md-7 col-md-push-1">
 
                             <h2>Welcome to MSG</h2>
                             <h3>The gratest way to find your next vocation!</h3>
@@ -194,68 +204,6 @@
     </div>
 </div>
 
-
-<!-- to delete -->
-<!--
-    <div id="fh5co-destination">
-    <div class="tour-fluid">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="box-testimony animate-box">
-                  
-                    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
-                    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-                    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyDriY2lRclAw8fsRAr8mwUcjFk616NAD-E&=false">
-                    </script>
-                    <script type="text/javascript">
-                        function initialize() {
-                            var mapOptions = {
-                                center: new google.maps.LatLng(31.9730, 34.7925),
-                                zoom: 7,
-                                mapTypeId: google.maps.MapTypeId.ROADMAP
-                            };
-                            var infoWindow = new google.maps.InfoWindow();
-                            var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-                            $.getJSON('/Home/ResGoogleMap', function (data) {
-                                $.each(data, function (i, value) {
-                                    var myLatlng = new google.maps.LatLng(value.latitude, value.longitude);
-                                    var marker = new google.maps.Marker({
-                                        position: myLatlng,
-                                        map: map
-                                    })
-                                    marker.setMap(map);
-                                });
-                            });
-                        }
-                    </script>
-                    <link href="~/lib/bootstrap/dist/css/bootstarp-PostTitle_Index.css" rel="stylesheet" />
-                    <h2 class="TitleChange">Google Maps</h2>
-                    <form id="form1" runat="server">
-                        <div id="map_canvas" style="width: 600px; height: 400px"></div>
-                        <br> <input type="button" class="btn btn-success" title="Delete" value="Click here to check all the destinations" onclick="location.href='@Url.Action("Index", "Restaurants", new  { @class = "button" })'" />
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>-->
-
-
-
-
-
-<!-- maps -->
-<footer>
-    <div id="footer">
-        <div class="container">
-            <div class="row row-bottom-padded-md">
-                <div class="col-md-8 col-sm-8 col-xs-12 fh5co-footer-link">
-                    <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1Rbz7bDxk4lDQWdWiM54VI_AcAirHLxQn" width="640" height="480"></iframe>
-                </div>
-                </div>
-            </div>
-        </div>
-</footer>
 
 <!-- like button--> 
 <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FMSG-102109414480690%2F%3Fmodal%3Dadmin_todo_tour&width=600&layout=standard&action=like&size=large&show_faces=true&share=true&height=80&appId=697109400702949" width="600" height="80" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>

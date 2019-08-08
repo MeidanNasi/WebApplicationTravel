@@ -17,6 +17,10 @@ namespace WebApplicationTravel.Controllers
         // GET: Reservations
         public ActionResult Index()
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var reservations = db.Reservations.Include(r => r.Account);
             return View(reservations.ToList());
         }
@@ -24,6 +28,10 @@ namespace WebApplicationTravel.Controllers
         // GET: Reservations/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +47,10 @@ namespace WebApplicationTravel.Controllers
         // GET: Reservations/Create
         public ActionResult Create()
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             ViewBag.AccountId = new SelectList(db.Accounts, "AccountId", "UserName");
             return View();
         }
@@ -50,6 +62,10 @@ namespace WebApplicationTravel.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ReservationId,AccountId")] Reservation reservation)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (ModelState.IsValid)
             {
                 db.Reservations.Add(reservation);
@@ -64,6 +80,10 @@ namespace WebApplicationTravel.Controllers
         // GET: Reservations/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -84,6 +104,10 @@ namespace WebApplicationTravel.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ReservationId,AccountId")] Reservation reservation)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(reservation).State = EntityState.Modified;
@@ -97,6 +121,10 @@ namespace WebApplicationTravel.Controllers
         // GET: Reservations/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -114,6 +142,10 @@ namespace WebApplicationTravel.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             Reservation reservation = db.Reservations.Find(id);
             db.Reservations.Remove(reservation);
             db.SaveChanges();
@@ -134,7 +166,10 @@ namespace WebApplicationTravel.Controllers
             if (Session["UserName"] != null)
             {
                 var c = db.Cities.SingleOrDefault(s => s.CityName == from);
-                var d = db.Cities.SingleOrDefault(s => s.CityName == from);
+                var d = db.Cities.SingleOrDefault(s => s.CityName == dest);
+                Session["wrong source"] = null;
+                Session["wrong dest"] = null;
+                Session["no path"] = null;
                 if (c == null)
                 {
                     Session["wrong source"] = true;
@@ -149,11 +184,23 @@ namespace WebApplicationTravel.Controllers
                 ReservationBuilder r;
                 if (submit.Contains("cheapest"))
                 {
-                    r = new ReservationBuilder(calcCheapestWay(from, dest));
+                    LinkedList<string> path = calcCheapestWay(from, dest);
+                    if (path.Count() ==0 )
+                    {
+                        Session["no path"] = true;
+                        return RedirectToAction("Index", "Home");
+                    }
+                    r = new ReservationBuilder(path);
                 }
                 else
                 {
-                    r = new ReservationBuilder(calcFastestWay(from, dest));
+                    LinkedList<string> path = calcFastestWay(from, dest);
+                    if (path.Count() == 0)
+                    {
+                        Session["no path"] = true;
+                        return RedirectToAction("Index", "Home");
+                    }
+                    r = new ReservationBuilder(path);
                 }
                 r.bulidReservation();
                 LinkedList<string> res = r.updateReservation();
@@ -165,7 +212,7 @@ namespace WebApplicationTravel.Controllers
                     reservation.Departure = date;
                     foreach(string s in res)
                     {
-                        reservation.TheReservation += s+ " <br /> ";
+                        reservation.TheReservation += s+ " | ";
                     }
                     db.Reservations.Add(reservation);
                     db.SaveChanges();

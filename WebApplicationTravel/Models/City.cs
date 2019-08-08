@@ -14,7 +14,8 @@ namespace WebApplicationTravel.Models
         public int CountryId { get; set; }
         public double FlightPriceKey { get; set; }
         public double CarRentalPriceKey { get; set; }
-        public Point Coordinate { get; set; }
+        public Double Latitude { get; set; }
+        public Double Longitude { get; set; }
         [InverseProperty("SourceCity")]
         public ICollection<Connections> SourceCityConnections { get; set; }
         [InverseProperty("DestCity")]

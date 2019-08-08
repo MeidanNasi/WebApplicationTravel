@@ -15,8 +15,20 @@ namespace WebApplicationTravel.Controllers
         private MSGDBContext db = new MSGDBContext();
 
         // GET: Cities
-        public ActionResult Index()
+        public ActionResult Index(string search)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var s = from c in db.Cities
+                    select c;
+            if (!String.IsNullOrEmpty(search))
+            {
+                s = s.Where(x => x.CityName.Equals(search)).Include(c => c.Country);
+                return View(s.ToList());
+            }
+            
             var cities = db.Cities.Include(c => c.Country);
             return View(cities.ToList());
         }
@@ -24,6 +36,10 @@ namespace WebApplicationTravel.Controllers
         // GET: Cities/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +55,10 @@ namespace WebApplicationTravel.Controllers
         // GET: Cities/Create
         public ActionResult Create()
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "CountryName");
             return View();
         }
@@ -48,8 +68,12 @@ namespace WebApplicationTravel.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CityId,CityName,CountryId,FlightPriceKey,CarRentalPriceKey,Coordinate")] City city)
+        public ActionResult Create([Bind(Include = "CityId,CityName,CountryId,FlightPriceKey,CarRentalPriceKey,Latitude,Longitude")] City city)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (ModelState.IsValid)
             {
                 db.Cities.Add(city);
@@ -64,6 +88,10 @@ namespace WebApplicationTravel.Controllers
         // GET: Cities/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -82,8 +110,12 @@ namespace WebApplicationTravel.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CityId,CityName,CountryId,FlightPriceKey,CarRentalPriceKey,Coordinate")] City city)
+        public ActionResult Edit([Bind(Include = "CityId,CityName,CountryId,FlightPriceKey,CarRentalPriceKey,Latitude,Longitude")] City city)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(city).State = EntityState.Modified;
@@ -97,6 +129,10 @@ namespace WebApplicationTravel.Controllers
         // GET: Cities/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -114,6 +150,10 @@ namespace WebApplicationTravel.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             City city = db.Cities.Find(id);
             db.Cities.Remove(city);
             db.SaveChanges();

@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -71,6 +74,10 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -245,13 +252,29 @@
     <Compile Include="Migrations\201908060839326_dateAdd2.Designer.cs">
       <DependentUpon>201908060839326_dateAdd2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908072033090_addPoint.cs" />
+    <Compile Include="Migrations\201908072033090_addPoint.Designer.cs">
+      <DependentUpon>201908072033090_addPoint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908072038079_addPoint2.cs" />
+    <Compile Include="Migrations\201908072038079_addPoint2.Designer.cs">
+      <DependentUpon>201908072038079_addPoint2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908080643093_changeCity.cs" />
+    <Compile Include="Migrations\201908080643093_changeCity.Designer.cs">
+      <DependentUpon>201908080643093_changeCity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908080714323_Point.cs" />
+    <Compile Include="Migrations\201908080714323_Point.Designer.cs">
+      <DependentUpon>201908080714323_Point.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BestFirstSearch.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Connections.cs" />
+    <Compile Include="Models\Coordinate.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\MSGDBContext.cs" />
-    <Compile Include="Models\Point.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\PriorityQueue.cs" />
     <Compile Include="Models\Reservation.cs" />
@@ -584,11 +607,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_MyTemplate.cshtml" />
-    <Content Include="Views\Cities\Create.cshtml" />
-    <Content Include="Views\Cities\Delete.cshtml" />
-    <Content Include="Views\Cities\Details.cshtml" />
-    <Content Include="Views\Cities\Edit.cshtml" />
-    <Content Include="Views\Cities\Index.cshtml" />
     <Content Include="Views\Countries\Create.cshtml" />
     <Content Include="Views\Countries\Delete.cshtml" />
     <Content Include="Views\Countries\Details.cshtml" />
@@ -619,6 +637,12 @@
     <Content Include="Views\Home\GoogleMaps.cshtml" />
     <Content Include="Views\Shared\_GoogleMaps.cshtml" />
     <Content Include="Views\Home\Flights.cshtml" />
+    <Content Include="Views\Connections\ConnectionSearch.cshtml" />
+    <Content Include="Views\Cities\Create.cshtml" />
+    <Content Include="Views\Cities\Delete.cshtml" />
+    <Content Include="Views\Cities\Details.cshtml" />
+    <Content Include="Views\Cities\Edit.cshtml" />
+    <Content Include="Views\Cities\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -694,6 +718,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908060839326_dateAdd2.resx">
       <DependentUpon>201908060839326_dateAdd2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908072033090_addPoint.resx">
+      <DependentUpon>201908072033090_addPoint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908072038079_addPoint2.resx">
+      <DependentUpon>201908072038079_addPoint2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908080643093_changeCity.resx">
+      <DependentUpon>201908080643093_changeCity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908080714323_Point.resx">
+      <DependentUpon>201908080714323_Point.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

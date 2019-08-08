@@ -6,7 +6,7 @@
 <html>
 <body onload="initialize()">
 
-    <h2> MSG </h2>
+    <h2> @Html.ActionLink("MSG", "Index","Home") </h2>
     <div class="col-md-4 col-sm-6 fh5co-tours animate-box" data-animate-effect="fadeIn">
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
@@ -21,12 +21,14 @@
                 };
                 var infoWindow = new google.maps.InfoWindow();
                 var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-                $.getJSON('/Home/ResGoogleMap', function (data) {
-                    $.each(data, function (i, value) {
-                        var myLatlng = new google.maps.LatLng(value.latitude, value.longitude);
+                $.getJSON("/Home/ResGoogleMap", function(data) {
+                    $.each(data, function (i, value) { 
+                        var myLatlng = new google.maps.LatLng(value.Latitude, value.Longitude);
                         var marker = new google.maps.Marker({
                             position: myLatlng,
                             map: map
+                            
+                        
                         })
                         marker.setMap(map);
                     });
@@ -38,7 +40,7 @@
     <link href="~/lib/bootstrap/dist/css/bootstarp-PostTitle_Index.css" rel="stylesheet" />
     <form id="form1" runat="server">
         <div id="map_canvas" style="width: 600px; height: 400px"></div>
-        <br> <input type="button" class="btn btn-success" title="Delete" value="Click here to check all the destantions" onclick="location.href='@Url.Action("GoogleMaps", "Home", new  { @class = "button" })'" />
+        <br> <input type="button" class="btn btn-success"  value="Click here to check all the destantions" onclick="location.href='@Url.Action("GoogleMaps", "Home", new  { @class = "button" })'" />
     </form>
 </body>
 </html>

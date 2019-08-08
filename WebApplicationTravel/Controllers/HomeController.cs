@@ -38,22 +38,19 @@ namespace WebApplicationTravel.Controllers
         }
         public ActionResult GoogleMaps()
         {
-            ViewBag.Message = "GoogleMaps.";
-
             return View();
         }
 
         public JsonResult ResGoogleMap()
         {
             var data = from r in db.Cities
-                       select new Point
+                       select new Coordinate
                        {
-                           X = r.Coordinate.X,
-                           Y = r.Coordinate.Y
+                           Longitude = r.Longitude,
+                           Latitude= r.Latitude
                        };
-            //viewmodel.resMap = data.ToList();
-            List<Point> resList = data.ToList();
-            return Json(resList);
+            var c = data.ToList();
+            return Json(data.ToList(), JsonRequestBehavior.AllowGet);
         }
         public ActionResult Flights(string search)
         {
@@ -65,8 +62,7 @@ namespace WebApplicationTravel.Controllers
                 ViewData["search"] = search;
                 cons = cons.Where(con => con.SourceCity.CityName == search && con.FlightAvailabilty==true);
                 ViewBag.count = cons.GroupBy(x => x.DestCity).Count();
-            }
-            var connections = db.Connections;
+            }  
             return View(cons.ToList());
         }
 

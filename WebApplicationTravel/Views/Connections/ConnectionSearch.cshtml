@@ -1,28 +1,28 @@
 ﻿@model IEnumerable<WebApplicationTravel.Models.Connections>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "ConnectionSearch";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>ConnectionSearch</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<form asp-controller="Connections" asp-action="Index">
+
+<form asp-controller="Connections" asp-action="ConnectionSearch">
     <p>
-        <input type="text" name="search" placeholder="Source city name">
+        <input type="text" name="sourceCity" placeholder="Source city">
+        <input type="text" name="flightDuration" placeholder="Flight duration">
+        <input type="text" name="flightPrice" placeholder="Flight price">
         <input type="submit" value="Filter" />
     </p>
 </form>
 <table class="table">
     <tr>
         <th>
-           @Html.DisplayNameFor(model => model.SourceCity)
+            @Html.DisplayNameFor(model => model.SourceCity)
         </th>
         <th>
-           @Html.DisplayNameFor(model => model.DestCity)           
+            @Html.DisplayNameFor(model => model.DestCity)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FlightDuration)
@@ -49,7 +49,6 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.SourceCity.CityName)
-          
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DestCity.CityName)
@@ -72,11 +71,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.FlightAvailabilty)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ConnectionsId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ConnectionsId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ConnectionsId })
-        </td>
+       
     </tr>
 }
 

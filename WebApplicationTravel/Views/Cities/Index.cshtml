@@ -10,6 +10,12 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<form asp-controller="Cities" asp-action="Index">
+    <p>
+        <input type="text" name="search" placeholder="City name">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
 <table class="table">
     <tr>
         <th>
@@ -25,7 +31,10 @@
             @Html.DisplayNameFor(model => model.CarRentalPriceKey)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Coordinate)
+            @Html.DisplayNameFor(model => model.Latitude)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Longitude)
         </th>
         <th></th>
     </tr>
@@ -45,7 +54,10 @@
             @Html.DisplayFor(modelItem => item.CarRentalPriceKey)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Coordinate)
+            @Html.DisplayFor(modelItem => item.Latitude)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Longitude)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.CityId }) |

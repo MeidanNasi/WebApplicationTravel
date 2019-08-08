@@ -10,6 +10,12 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<form asp-controller="Accounts" asp-action="Index">
+    <p>
+        <input type="text" name="search" placeholder="User name">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
 <table class="table">
     <tr>
         <th>

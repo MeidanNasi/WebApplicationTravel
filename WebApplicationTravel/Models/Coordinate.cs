@@ -5,9 +5,9 @@ using System.Web;
 
 namespace WebApplicationTravel.Models
 {
-    public class Point
+    public class Coordinate
     {
-        public double X { get; set; }
-        public double Y { get; set; }
+        public Double Latitude { get; set; }
+        public Double Longitude { get; set; }
     }
 }

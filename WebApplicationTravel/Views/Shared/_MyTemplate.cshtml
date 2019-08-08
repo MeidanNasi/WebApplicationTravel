@@ -65,9 +65,9 @@
                 <nav id="fh5co-menu-wrap" role="navigation">
                     <ul class="sf-menu" id="fh5co-primary-menu">
                         <li class="active">@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Maps", "GoogleMaps", "Home")</li>
+                        <li>@Html.ActionLink("Map", "GoogleMaps", "Home")</li>
                         <li>@Html.ActionLink("Flights", "Flights", "Home")</li>
-                        
+                        <li>@Html.ActionLink("Connections", "ConnectionSearch", "Connections")</li>
                 
                         @if (Session["UserName"] != null)
                         {
