@@ -51,11 +51,7 @@
                                         </div>
                                         <div class="col-xs-12">
                                             <input type="submit" class="btn btn-primary btn-block" name="submit" value="Find me the cheapest way!">
-                                            @*@if (Session["no path"] != null)
-                                            {
-                                                <h6 style="color:Tomato;">No path!</h6>
-                                                    <h6 style="color:Tomato;">Please try again.</h6>
-                                            }*@
+                                         
                                         </div>
                                         <div class="col-xs-12">
                                             <br>
@@ -204,10 +200,14 @@
     </div>
 </div>
 
+<!--weather-->
+<a class="weatherwidget-io" href="https://forecast7.com/en/40d71n74d01/new-york/" data-label_1="NEW YORK" data-label_2="WEATHER" data-theme="original">NEW YORK WEATHER</a>
+<script>
+    !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = 'https://weatherwidget.io/js/widget.min.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'weatherwidget-io-js');
+</script>
 
 <!-- like button--> 
 <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FMSG-102109414480690%2F%3Fmodal%3Dadmin_todo_tour&width=600&layout=standard&action=like&size=large&show_faces=true&share=true&height=80&appId=697109400702949" width="600" height="80" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
-
 
 
 

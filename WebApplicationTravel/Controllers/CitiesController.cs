@@ -155,6 +155,11 @@ namespace WebApplicationTravel.Controllers
                 return RedirectToAction("Index", "Home");
             }
             City city = db.Cities.Find(id);
+            var cons = db.Connections.Where(c => c.DestCityId == id || c.SourceCityId == id);
+            foreach(Connections c in cons)
+            {
+                db.Connections.Remove(c);
+            }
             db.Cities.Remove(city);
             db.SaveChanges();
             return RedirectToAction("Index");
